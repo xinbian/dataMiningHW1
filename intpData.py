@@ -9,7 +9,7 @@ with open('iris.data') as csvfile:
     petWids = []
     irisClasss = []
     for row in irisData:
-       #  sepLen = row[0]
+         sepLen = row[0]
          sepWid = row[1]
          petLen = row[2]
          petWid = row[3]
@@ -21,3 +21,8 @@ with open('iris.data') as csvfile:
          irisClasss.append(irisClass)
 
 #convert to numerics
+
+sepLens=[float(i) for i in sepLens]
+sepWids=[float(i) for i in sepWids]
+petLens=[float(i) for i in petLens]
+petwids=[float(i) for i in petWids]
