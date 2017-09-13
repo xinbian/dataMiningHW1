@@ -1,3 +1,4 @@
+#use python 2
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -8,7 +9,7 @@ from pandas.tools.plotting import parallel_coordinates
 import seaborn as sns
 
 
-
+#read data
 data=pd.read_csv('iris.data', sep=',', na_values=".",header=None)
 
 #change column names
@@ -65,7 +66,21 @@ for i in range(4):
         print "Statistics of verginica"
     print "basic info"
     print classlist[i].describe()
-
+    
+#calculate mean, median
+classlist=[data, setosa,versi,verginica]
+for i in range(4):
+    if i==0:
+        print "Statistics of total data"
+    if i==1:
+        print "Statistics of setosa"
+    if i==2:
+        print "Statistics of versi"
+    if i==3:
+        print "Statistics of verginica"
+    print "correlation"
+    print classlist[i].corr(method='pearson', min_periods=1)
+    
 #plot boxplot
 
 data.boxplot()
@@ -86,57 +101,22 @@ plt.savefig('verginicabox.eps', format='eps', dpi=600)
 plt.show()
     
     
-#plot scatter, correlation 
-
-ax1 = setosa.plot(kind='scatter', x='sepal length', y='petal width', color='r',label='setosa')  
-ax2 = versi.plot(kind='scatter', x='sepal length', y='petal width', color='g',ax=ax1,label='versi')  
-ax3 = verginica.plot(kind='scatter', x='sepal length', y='petal width', color='b',ax=ax1,label='verginica')  
-print(ax1==ax2==ax3)
-plt.savefig('slpwscatter.eps', format='eps', dpi=600)
-
-
-ax1 = setosa.plot(kind='scatter', x='sepal length', y='petal length', color='r',label='setosa')  
-ax2 = versi.plot(kind='scatter', x='sepal length', y='petal length', color='g',ax=ax1,label='versi')  
-ax3 = verginica.plot(kind='scatter', x='sepal length', y='petal length', color='b',ax=ax1,label='verginica')  
-print(ax1==ax2==ax3)
-plt.savefig('slplscatter.eps', format='eps', dpi=600)
-
-ax1 = setosa.plot(kind='scatter', x='sepal width', y='petal length', color='r',label='setosa')  
-ax2 = versi.plot(kind='scatter', x='sepal width', y='petal length', color='g',ax=ax1,label='versi')  
-ax3 = verginica.plot(kind='scatter', x='sepal width', y='petal length', color='b',ax=ax1,label='verginica')  
-print(ax1==ax2==ax3)
-plt.savefig('swplscatter.eps', format='eps', dpi=600)
-
-ax1 = setosa.plot(kind='scatter', x='sepal width', y='petal width', color='r',label='setosa')  
-ax2 = versi.plot(kind='scatter', x='sepal width', y='petal width', color='g',ax=ax1,label='versi')  
-ax3 = verginica.plot(kind='scatter', x='sepal width', y='petal width', color='b',ax=ax1,label='verginica')  
-print(ax1==ax2==ax3)
-plt.savefig('swpwscatter.eps', format='eps', dpi=600)
-  
-ax1 = setosa.plot(kind='scatter', x='sepal length', y='sepal width', color='r',label='setosa')  
-ax2 = versi.plot(kind='scatter', x='sepal length', y='sepal width', color='g',ax=ax1,label='versi')  
-ax3 = verginica.plot(kind='scatter', x='sepal length', y='sepal width', color='b',ax=ax1,label='verginica')  
-print(ax1==ax2==ax3)
-plt.savefig('slswscatter.eps', format='eps', dpi=600)
-
-
-ax1 = setosa.plot(kind='scatter', x='petal length', y='petal width', color='r',label='setosa')  
-ax2 = versi.plot(kind='scatter', x='petal length', y='petal width', color='g',ax=ax1,label='versi')  
-ax3 = verginica.plot(kind='scatter', x='petal length', y='petal width', color='b',ax=ax1,label='verginica')  
-print(ax1==ax2==ax3)
-plt.savefig('plpwscatter.eps', format='eps', dpi=600)
-
-
-
 
 
 andrews_curves(data,'irisclass').legend(bbox_to_anchor=(0.4, 1))
+plt.savefig('andrews_curve.eps', format='eps', dpi=600)
 radviz(data,'irisclass').legend(bbox_to_anchor=(1.1, 1))
+plt.savefig('radviz.eps', format='eps', dpi=600)
+plt.show()
 
-parallel_coordinates(data,'irisclass').legend(bbox_to_anchor=(1.2, 1))
+parallel_coordinates(data,'irisclass').legend(bbox_to_anchor=(1, 1))
+plt.savefig('paracoor.eps', format='eps', dpi=600)
+plt.show()
 
+#plot scatter, correlation 
 sns.set(style="ticks")
 sns.pairplot(data, hue="irisclass")
 plt.savefig('scatermatrix.eps', format='eps', dpi=600)
+plt.show()
 
 
